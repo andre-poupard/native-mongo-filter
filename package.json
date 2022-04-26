@@ -1,6 +1,6 @@
 {
   "name": "native-mongo-filter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "filter nested objects using MongoDB-like syntax",
   "main": "index.js",
   "author": "Andre Poupard",
