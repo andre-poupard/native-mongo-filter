@@ -1,5 +1,5 @@
 {
-  "name": "mongo-filter",
+  "name": "native-mongo-filter",
   "version": "1.0.0",
   "description": "filter nested objects using MongoDB-like syntax",
   "main": "index.js",
