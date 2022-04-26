@@ -13,7 +13,7 @@ const valueOperators = [
 
 const logicalOperators = [
   '$and',
-  '$or',
+  '$or'
 ]
 
 const Equals = Symbol('equals')
@@ -32,7 +32,6 @@ const Or = Symbol('or')
 const queryStringToType = new Map([
   ['$and', And],
   ['$or', Or],
-  ['$nin', NotIn],
   ['$eq', Equals],
   ['$gt', GreaterThan],
   ['$gte', GreaterThanEqualTo],
@@ -41,22 +40,23 @@ const queryStringToType = new Map([
   ['$ne', NotEquals],
   ['$regex', Regex],
   ['$size', Size],
-  ['$in', In]
+  ['$in', In],
+  ['$nin', NotIn]
 ])
 
 const queryStringToCodeEmitter = new Map([
   [And, (value) => compileLogicalOperator(value, ' && ')],
   [Or, (value) => compileLogicalOperator(value, ' || ')],
-  [NotIn, (path, value) => `!${value}.includes(${path})`],
   [Equals, (path, value) => `${path} === ${value}`],
   [GreaterThan, (path, value) => `${path} > ${value}`],
   [GreaterThanEqualTo, (path, value) => `${path} >= ${value}`],
   [LessThan, (path, value) => `${path} < ${value}`],
   [LessThanEqualTo, (path, value) => `${path} <= ${value}`],
   [NotEquals, (path, value) => `${path} !== ${value}`],
-  [Regex, (path, value) => `${value}.test(${path})`],
-  [Size, (path, value) => `${path}?.length === ${value}`],
-  [In, (path, value) => `${value}.includes(${path})`]
+  [Regex, (path, value) => `typeof ${value} === 'string' && ${value}.test(${path})`],
+  [Size, (path, value) => `Array.isArray(${value}) && ${path}?.length === ${value}`],
+  [In, (path, value) => `Array.isArray(${value}) && ${value}.includes(${path})`],
+  [NotIn, (path, value) => `Array.isArray(${value}) && !${value}.includes(${path})`]
 ])
 
 const queryTypeCheckers = new Map([
